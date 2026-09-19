@@ -12,17 +12,17 @@ RUN apt-get update \
 # can retry/cache them separately.
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y hipblaslt7.2.0 \
+    && apt-get install --no-install-recommends -y hipblaslt \
     && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y rocsolver7.2.0 \
+    && apt-get install --no-install-recommends -y rocsolver \
     && rm -rf /var/lib/apt/lists/*
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y hipblas7.2.0 \
+    && apt-get install --no-install-recommends -y hipblas \
     && rm -rf /var/lib/apt/lists/*
 
 RUN archive="llama-${PRISM_RELEASE}-bin-ubuntu-rocm-7.2-x64.tar.gz" \
