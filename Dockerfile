@@ -5,7 +5,7 @@ ARG PRISM_ARCHIVE_SHA256=230f879d538bb9f794d25c908bc8c0f676774c41c3e70ea719131c8
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y ca-certificates curl \
+    && apt-get install --no-install-recommends -y ca-certificates curl hipblas rocblas \
     && rm -rf /var/lib/apt/lists/*
 
 RUN archive="llama-${PRISM_RELEASE}-bin-ubuntu-rocm-7.2-x64.tar.gz" \
