@@ -7,7 +7,7 @@ The image does not contain model weights. Mount GGUF files into the container an
 ## Image
 
 ```text
-ghcr.io/twistedgrim/prism-llama-rocm:prism-b10709-9a9394a-rocmblas3
+ghcr.io/twistedgrim/prism-llama-rocm:prism-b10709-9a9394a-rocmblas4
 ```
 
 The image is published publicly. Pin deployments to an image digest after the first successful build rather than using `latest`.
@@ -29,7 +29,7 @@ docker run --rm \
   --device /dev/dri \
   -v /path/to/models:/models:ro \
   -p 8080:8080 \
-  ghcr.io/twistedgrim/prism-llama-rocm:prism-b10709-9a9394a-rocmblas3 \
+  ghcr.io/twistedgrim/prism-llama-rocm:prism-b10709-9a9394a-rocmblas4 \
   --model /models/Ternary-Bonsai-2-27B-PTQ1_0.gguf \
   --host 0.0.0.0 \
   --port 8080 \

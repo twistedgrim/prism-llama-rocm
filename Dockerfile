@@ -23,7 +23,8 @@ RUN apt-get update \
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install --no-install-recommends -y hipblas \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && ldconfig
 
 RUN archive="llama-${PRISM_RELEASE}-bin-ubuntu-rocm-7.2-x64.tar.gz" \
     && curl --fail --location --silent --show-error \
