@@ -5,7 +5,24 @@ ARG PRISM_ARCHIVE_SHA256=230f879d538bb9f794d25c908bc8c0f676774c41c3e70ea719131c8
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get install --no-install-recommends -y ca-certificates curl hipblas rocblas \
+    && apt-get install --no-install-recommends -y ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Keep the large ROCm dependencies in independent layers so registries and nodes
+# can retry/cache them separately.
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y hipblaslt7.2.0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y rocsolver7.2.0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y hipblas7.2.0 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN archive="llama-${PRISM_RELEASE}-bin-ubuntu-rocm-7.2-x64.tar.gz" \
@@ -17,7 +34,10 @@ RUN archive="llama-${PRISM_RELEASE}-bin-ubuntu-rocm-7.2-x64.tar.gz" \
     && mkdir -p /opt/prism \
     && tar --extract --gzip --file /tmp/llama.tar.gz --directory /opt/prism --strip-components=1 \
     && rm /tmp/llama.tar.gz \
-    && /opt/prism/llama-server --version
+    && /opt/prism/llama-server --version \
+    && ldd /opt/prism/libggml-hip.so > /tmp/libggml-hip.ldd \
+    && ! grep --quiet 'not found' /tmp/libggml-hip.ldd \
+    && rm /tmp/libggml-hip.ldd
 
 ENV PATH="/opt/prism:${PATH}"
 

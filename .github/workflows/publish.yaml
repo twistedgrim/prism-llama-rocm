@@ -26,7 +26,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository_owner }}/prism-llama-rocm
           tags: |
-            type=raw,value=prism-b10709-9a9394a-rocmblas1
+            type=raw,value=prism-b10709-9a9394a-rocmblas2
             type=raw,value=latest
 
       - uses: docker/build-push-action@v7
